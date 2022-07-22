@@ -367,7 +367,7 @@ def get_style_fontsize(node):
     """
     if hasattr(node, 'rpr'):
         if 'sz' in node.rpr:
-            return int(node.rpr['sz']) / 2
+            return int(float(node.rpr['sz'])) / 2
 
     return 0
 
@@ -395,12 +395,12 @@ def get_style_css(ctx, node, embed=True, fontsize=-1):
 
     if fontsize in [-1, 2]:
         if 'sz' in node.rpr:
-            size = int(node.rpr['sz']) / 2
+            size = int(float(node.rpr['sz'])) / 2
 
             if ctx.options['embed_fontsize']:
                 if ctx.options['scale_to_size']:                
                     multiplier = size-ctx.options['scale_to_size']
-                    scale = 100 + int(math.trunc(8.3*multiplier))
+                    scale = 100 + int(float(math.trunc(8.3*multiplier)))
                     style.append('font-size: {}%'.format(scale))
                 else:
                     style.append('font-size: {}pt'.format(size))
@@ -437,15 +437,15 @@ def get_style_css(ctx, node, embed=True, fontsize=-1):
 
         if 'ind' in node.ppr:
             if 'left' in node.ppr['ind']:
-                size = int(node.ppr['ind']['left']) / 10
+                size = int(float(node.ppr['ind']['left'])) / 10
                 style.append('margin-left: {}px'.format(size))
 
             if 'right' in node.ppr['ind']:
-                size = int(node.ppr['ind']['right']) / 10
+                size = int(float(node.ppr['ind']['right'])) / 10
                 style.append('margin-right: {}px'.format(size))
 
             if 'first_line' in node.ppr['ind']:
-                size = int(node.ppr['ind']['first_line']) / 10
+                size = int(float(node.ppr['ind']['first_line'])) / 10
                 style.append('text-indent: {}px'.format(size))
 
     if len(style) == 0:
@@ -936,7 +936,7 @@ class HeaderContext:
             style = doc.styles.get_by_id(style_id)
 
             if hasattr(style, 'rpr') and 'sz' in style.rpr:
-                font_size = int(style.rpr['sz']) / 2
+                font_size = int(float(style.rpr['sz'])) / 2
 
                 if font_size <= self.default_font_size:
                     continue

@@ -131,12 +131,12 @@ def parse_paragraph_properties(doc, paragraph, prop):
         ilvl = numpr.find(_name('{{{w}}}ilvl'))
 
         if ilvl is not None:
-            paragraph.ilvl = int(ilvl.attrib[_name('{{{w}}}val')])
+            paragraph.ilvl = int(float(ilvl.attrib[_name('{{{w}}}val')]))
 
         numid = numpr.find(_name('{{{w}}}numId'))
 
         if numid is not None:
-            paragraph.numid = int(numid.attrib[_name('{{{w}}}val')])
+            paragraph.numid = int(float(numid.attrib[_name('{{{w}}}val')]))
 
     jc = prop.find(_name('{{{w}}}jc'))
 
@@ -380,7 +380,7 @@ def parse_table_column_properties(doc, cell, prop):
     grid = prop.find(_name('{{{w}}}gridSpan'))
 
     if grid is not None:
-        cell.grid_span = int(grid.attrib[_name('{{{w}}}val')])
+        cell.grid_span = int(float(grid.attrib[_name('{{{w}}}val')]))
 
     vmerge = prop.find(_name('{{{w}}}vMerge'))
 
@@ -619,7 +619,7 @@ def parse_numbering(document, xmlcontent):
     for abstruct_num in numbering.xpath('.//w:abstractNum', namespaces=NAMESPACES):
         numb = {}
         for lvl in abstruct_num.xpath('./w:lvl', namespaces=NAMESPACES):
-            ilvl = int(lvl.attrib[_name('{{{w}}}ilvl')])
+            ilvl = int(float(lvl.attrib[_name('{{{w}}}ilvl')]))
 
             fmt = lvl.find(_name('{{{w}}}numFmt'))
             numb[ilvl] = {'numFmt': fmt.attrib[_name('{{{w}}}val')]}
@@ -633,7 +633,7 @@ def parse_numbering(document, xmlcontent):
 
         if abs_num is not None:
             number_id = abs_num.attrib[_name('{{{w}}}val')]
-            document.numbering[int(num_id)] = number_id
+            document.numbering[int(float(num_id))] = number_id
 
 
 def parse_from_file(file_object):
