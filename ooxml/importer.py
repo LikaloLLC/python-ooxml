@@ -64,14 +64,14 @@ def _calculate(doc, elem, style_id):
             weight += len(value.strip())
 
             if hasattr(elem, 'rpr') and 'sz' in elem.rpr:
-                font_size = int(elem.rpr['sz'])/2
+                font_size = int(float(elem.rpr['sz']))/2
                 doc.usage_font_size[font_size] += weight
             elif style_id is not None:
                 font_size = -1
                 # should check all styles
                 for style in doc.get_styles(style_id):
                     if 'sz' in style.rpr:
-                        font_size = int(style.rpr['sz'])/2
+                        font_size = int(float(style.rpr['sz']))/2
                         break
 
                 if font_size != -1:
@@ -82,7 +82,7 @@ def _calculate(doc, elem, style_id):
 
                 for style in doc.get_styles(st.style_id):
                     if 'sz' in style.rpr:
-                        font_size = int(style.rpr['sz'])/2
+                        font_size = int(float(style.rpr['sz']))/2
                         break
 
                 if font_size != -1:
@@ -90,7 +90,7 @@ def _calculate(doc, elem, style_id):
                 else:
                     if doc.default_style:
                         if 'sz' in doc.default_style.rpr:
-                            font_size = int(doc.default_style.rpr['sz'])/2
+                            font_size = int(float(doc.default_style.rpr['sz']))/2
                             doc.usage_font_size[font_size] += weight
 
         if isinstance(elem, Table):
@@ -337,8 +337,8 @@ def mark_styles(ctx, doc, elements):
                     t_length = text_length(elem)
 
                     if  t_length < ctx.options['header_as_text_length'] and t_length >= ctx.options['header_as_text_length_minimum']:
-                        markers.append({'name': '', 'weight': weight, 'index': pos, 'font_size': int(elem.rpr['sz']) / 2})
-                        font_size = int(elem.rpr['sz'])/2
+                        markers.append({'name': '', 'weight': weight, 'index': pos, 'font_size': int(float(elem.rpr['sz'])) / 2})
+                        font_size = int(float(elem.rpr['sz']))/2
                         has_found = True
 
             if ctx.options['header_as_bold_centered']:
@@ -360,7 +360,7 @@ def mark_styles(ctx, doc, elements):
                     if hasattr(e, 'rpr') and 'sz' in e.rpr:
                         t_length = text_length(elem)
                         if  t_length < ctx.options['header_as_text_length'] and t_length >= ctx.options['header_as_text_length_minimum']: 
-                            fnt_size = int(e.rpr['sz'])/2
+                            fnt_size = int(float(e.rpr['sz']))/2
 
                             if fnt_size != font_size:
                                 markers.append({'name': '', 'weight': weight, 'index': pos, 'font_size': fnt_size})

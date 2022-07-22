@@ -39,7 +39,7 @@ class Style(object):
           Returns font size as integer. Returns -1 if font size is not defined for this style.
         """
         if 'sz' in self.rpr:
-            return int(self.rpr['sz'])/2
+            return int(float(self.rpr['sz']))/2
 
         return -1
 
@@ -101,7 +101,7 @@ class Document(object):
             self.used_styles.append(name)
 
     def add_font_as_used(self, sz):
-        fsz = int(sz) / 2
+        fsz = int(float(sz)) / 2
         self.used_font_size[fsz] += 1
 
     def get_styles(self, name):
